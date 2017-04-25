@@ -231,7 +231,6 @@ void ccParam(byte num, byte val){
       Serial.println(val, HEX);
       break;  
   }
-  //opa.writeOperatorParam(OPA_PROGRAM, OPA_OPERATOR_0, OPA_OP_LFOSPEED, val*2);
 }
 
 void setup() {
@@ -261,50 +260,35 @@ void controlChange(byte channel, byte control, byte value) {
   
 }
 
-/*
-void random_lfo(byte OPA_PROGRAM){
-  byte spd=random(10);
-  byte amt=random(10);
-  opa.writeOperatorParam(OPA_PROGRAM, OPA_OPERATOR_0, OPA_OP_LFOSPEED, spd);
-  opa.writeOperatorParam(OPA_PROGRAM, OPA_OPERATOR_0, OPA_OP_LFOAMOUNT, amt);
-}
-*/
+byte midichannel=0;
 
 void loop() {
   midiEventPacket_t rx;
   do {
-    
-    /*
-    int p1 = analogRead(1) >> 2;
-    int p2 = analogRead(4) >> 2;
-    opa.writeOperatorParam(OPA_PROGRAM_0, OPA_OPERATOR_2, OPA_OP_VOLUME, p1);
-    opa.writeOperatorParam(OPA_PROGRAM_0, OPA_OPERATOR_0, OPA_OP_ENVRELEASE, p2);
-    opa.writeOperatorParam(OPA_PROGRAM_0, OPA_OPERATOR_1, OPA_OP_ENVRELEASE, p2);
-    */
-  
+ 
     rx = MidiUSB.read();
     if (rx.header != 0) {
       byte msg=rx.byte1;
-      byte midichannel=rx.byte1 & 0x0f;
+      midichannel=rx.byte1 & 0x0f;
       byte program=midichannel;
       switch(rx.header){
         
         case 8://NOTE OFF
           opa.noteOff(program,rx.byte2);
-          Serial.print("NOTE OFF: ");
-          Serial.print(rx.byte2, HEX);
-          Serial.print("CHN: ");
-          Serial.println(midichannel, HEX);
+          //Serial.print("NOTE OFF: ");
+          //Serial.print(rx.byte2, HEX);
+          //Serial.print("CHN: ");
+          //Serial.println(midichannel, HEX);
           break;
         
         case 9:
           opa.noteOn(program,rx.byte2);
-          Serial.print("NOTE ON: ");
-          Serial.print(rx.byte2, HEX);
-          Serial.print(" - VELOCITY: ");
-          Serial.print(rx.byte3, HEX);
-          Serial.print(" - CHN: ");
-          Serial.println(midichannel, HEX);
+          //Serial.print("NOTE ON: ");
+          //Serial.print(rx.byte2, HEX);
+          //Serial.print(" - VELOCITY: ");
+          //Serial.print(rx.byte3, HEX);
+          //Serial.print(" - CHN: ");
+          //Serial.println(midichannel, HEX);
           
           break;
 
@@ -317,8 +301,10 @@ void loop() {
           ccParam(rx.byte2,rx.byte3);
           break;
         
-        case 12://'Program change'
+        case 12://'Program change' (104 user programs apparently)
           Serial.print("PRG: ");
+          Serial.print(rx.byte2, HEX);
+          opa.loadInternal(midichannel,rx.byte2);
           break;
         
         
@@ -328,6 +314,7 @@ void loop() {
           break;
         
         default:
+          /*
           Serial.print("Received: ");
           Serial.print(rx.header, HEX);
           Serial.print("-");
@@ -336,6 +323,7 @@ void loop() {
           Serial.print(rx.byte2, HEX);
           Serial.print("-");
           Serial.println(rx.byte3, HEX);
+          */
           break;
           
       }
