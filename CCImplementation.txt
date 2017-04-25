@@ -1,4 +1,4 @@
-OPAFM Program Parameters CC implemetation
+OPAFM Program Parameters CC implementation
 @author: jambonbill
 
 
