@@ -1,8 +1,8 @@
 # MIDIUSB-OPA
-MIDI-USB arduino sketch, with a "convenient" midi implementation, for the OPA-FM synth shield
 
+MIDI-USB Arduino (Leonardo) sketch, 
+with a proper midi implementation, for the fredslab.net/opa/ OPA-FM synth shield
 
---
 
 Done:
 --
