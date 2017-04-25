@@ -6,6 +6,8 @@
 
 OPA opa;
 
+byte midichannel=0;
+
 void noteOn(byte channel, byte pitch, byte velocity) {
   midiEventPacket_t noteOn = {0x09, 0x90 | channel, pitch, velocity};
   MidiUSB.sendMIDI(noteOn);
@@ -19,7 +21,11 @@ void noteOff(byte channel, byte pitch, byte velocity) {
 
 void ccParam(byte num, byte val){
   
-  byte OPA_PROGRAM=0;
+  if (midichannel>7) {
+    return;    
+  }
+  
+  byte OPA_PROGRAM=midichannel;
   
   switch(num){
     
@@ -236,6 +242,7 @@ void ccParam(byte num, byte val){
 void setup() {
   Serial.begin(115200);
   opa.enable();
+  opa.setMemoryProtection(false);
   //opa.loadInternal(OPA_PROGRAM_0, 0);
   //opa.loadInternal(OPA_PROGRAM_1, 1);
 
@@ -260,7 +267,7 @@ void controlChange(byte channel, byte control, byte value) {
   
 }
 
-byte midichannel=0;
+
 
 void loop() {
   midiEventPacket_t rx;
