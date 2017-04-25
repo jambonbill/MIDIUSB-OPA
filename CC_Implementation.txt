@@ -1,6 +1,5 @@
-OPAFM Program Parameters CC implementation
-@author: jambonbill
-
+CC Chart of Fredslab OPA.FM by Jambonbill
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 OPA_PROGRAM_PARAMETERS
 -------------------------------
