@@ -316,8 +316,8 @@ void loop() {
         
         
         case 0xe://'Pitch wheel'
-          Serial.print("PITCH");
-          //pitchBend(program, int8_t coarse, int8_t fine);
+          //Serial.print("PITCH");
+          opa.pitchBend(program, rx.byte2, rx.byte3);
           break;
         
         default:
