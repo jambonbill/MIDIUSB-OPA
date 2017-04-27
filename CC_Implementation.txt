@@ -77,7 +77,7 @@ x4B| 75|OPA_OP_FLAGS
 Methods
 ---------------------------------
 Hex|Dec| Parameter
-xxx|000| storeInternal (OPA_PROGRAMS program, uint8_t slot);
-xxx|000| loadInternal (OPA_PROGRAMS program, uint8_t slot);
-xxx|000| allNotesOff(OPA_PROGRAMS program);
-xxx|000| allSoundsOff();
+x50| 80| storeInternal (OPA_PROGRAMS program, uint8_t slot);
+x51| 81| loadInternal (OPA_PROGRAMS program, uint8_t slot);
+x52| 82| allNotesOff(OPA_PROGRAMS program);
+x53| 83| allSoundsOff();
